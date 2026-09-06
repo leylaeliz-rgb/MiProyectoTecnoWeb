@@ -13,7 +13,7 @@ class Libro
         Autor = autor;
         Categoria = categoria;
         Codigo = codigo;
-        disponibilidad = true;
+        Disponibilidad = true;
     }
     
     public void MostrarInformacion()
@@ -28,4 +28,11 @@ class Libro
             Console.WriteLine("No disponible");
             }
     }
+}
+
+class Usuario
+{
+    public string Identificador { get; set; }
+    public string Nombre { get; set; }
+    public string Correo { get; set; }
 }
