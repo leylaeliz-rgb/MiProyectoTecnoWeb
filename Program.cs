@@ -1,13 +1,17 @@
-﻿
-class Libro
+﻿interface IPrestable
+{
+    void Prestar();
+    void Devolver();
+}
+class Libro : IPrestable
 {
     public string Titulo { get; set; }
     public string Autor { get; set; }
     public string Categoria { get; set; }
-    public string Codigo{get; set;}
+    public string Codigo { get; set; }
     public bool Disponibilidad { get; set; }
 
-    public Libro (string titulo, string autor, string categoria, string codigo, bool disponibilidad)
+    public Libro(string titulo, string autor, string categoria, string codigo, bool disponibilidad)
     {
         Titulo = titulo;
         Autor = autor;
@@ -15,7 +19,14 @@ class Libro
         Codigo = codigo;
         Disponibilidad = disponibilidad;
     }
-    
+    public void Prestar()
+    {
+        Disponibilidad = false;
+    }
+    public void Devolver()
+    {
+        Disponibilidad = true;
+    }
     public void MostrarInformacion()
     {
         Console.WriteLine($"{Titulo} - Escrito por: {Autor} ({Categoria},{Codigo}), Estado: ");
