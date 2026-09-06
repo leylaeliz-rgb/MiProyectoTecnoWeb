@@ -13,7 +13,7 @@ class Libro
         Autor = autor;
         Categoria = categoria;
         Codigo = codigo;
-        Disponibilidad = true;
+        Disponibilidad = disponibilidad;
     }
     
     public void MostrarInformacion()
@@ -35,4 +35,22 @@ class Usuario
     public string Identificador { get; set; }
     public string Nombre { get; set; }
     public string Correo { get; set; }
+
+    public Usuario(string identificador, string nombre, string correo)
+    {
+        Identificador = identificador;
+        Nombre = nombre;
+        Correo = correo;
+    }
+    public void MostrarInformacion()
+    {
+        Console.WriteLine($"ID: {Identificador} | Nombre: {Nombre} | Correo: {Correo}");
+    }
 }
+
+record Prestamo(
+    string CodigoLibro,
+    string IdentificadorUsuario,
+    DateTime FechaPrestamo,
+    DateTime? FechaDevolucion
+);
