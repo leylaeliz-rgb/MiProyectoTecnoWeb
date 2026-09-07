@@ -160,9 +160,16 @@ class BibliotecaService
         string identificador = Console.ReadLine()!;
 
         // Verificar identificador único
-        if (usuarios.Any(u => u.Identificador == identificador))
+        try
         {
-            Console.WriteLine("Error: ya existe un usuario con ese identificador.");
+            if (usuarios.Any(u => u.Identificador == identificador))
+            {
+                throw new ElementoDuplicadoException($"Ya existe un usuario con el identificador '{identificador}'.");
+            }
+        }
+        catch (ElementoDuplicadoException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
             return;
         }
 
