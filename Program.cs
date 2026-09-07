@@ -330,5 +330,49 @@ class BibliotecaService
         Console.WriteLine("Préstamo registrado correctamente.");
     }
 
+    // DEVOLVER LIBRO
+
+    public void DevolverLibro()
+    {
+        Console.WriteLine("\n--- DEVOLVER LIBRO ---");
+
+        Console.Write("Código del libro: ");
+        string codigoLibro = Console.ReadLine()!;
+
+        Prestamo? prestamo = prestamos
+            .FirstOrDefault(p =>
+                p.CodigoLibro == codigoLibro &&
+                p.FechaDevolucion == null
+            );
+
+        if (prestamo == null)
+        {
+            Console.WriteLine("No existe un préstamo activo para ese libro.");
+            return;
+        }
+
+        Libro? libro = libros.FirstOrDefault(
+            l => l.Codigo == codigoLibro
+        );
+
+        if (libro == null)
+        {
+            Console.WriteLine("El libro no existe.");
+            return;
+        }
+
+        libro.Devolver();
+
+        // Crear un nuevo record con la fecha de devolución
+        Prestamo prestamoActualizado = prestamo with
+        {
+            FechaDevolucion = DateTime.Now
+        };
+
+        prestamos.Remove(prestamo);
+        prestamos.Add(prestamoActualizado);
+
+        Console.WriteLine("Libro devuelto correctamente.");
+    }
 
 }
