@@ -21,6 +21,11 @@ class Libro : IPrestable
     }
     public void Prestar()
     {
+        if (!Disponibilidad)
+        {
+            throw new Exception("El libro ya fue prestado.");
+        }
+
         Disponibilidad = false;
     }
     public void Devolver()
@@ -65,3 +70,80 @@ record Prestamo(
     DateTime FechaPrestamo,
     DateTime? FechaDevolucion
 );
+
+class BibliotecaService
+{
+    private List<Libro> libros = new List<Libro>();
+    private List<Usuario> usuarios = new List<Usuario>();
+    private List<Prestamo> prestamos = new List<Prestamo>();
+
+    // REGISTRAR LIBRO
+    public void RegistrarLibro()
+    {
+        Console.WriteLine("\n--- REGISTRAR LIBRO ---");
+
+        Console.Write("Título: ");
+        string titulo = Console.ReadLine()!;
+
+        Console.Write("Autor: ");
+        string autor = Console.ReadLine()!;
+
+        Console.Write("Categoría: ");
+        string categoria = Console.ReadLine()!;
+
+        Console.Write("Código: ");
+        string codigo = Console.ReadLine()!;
+
+        // Verificar que el código sea único
+        if (libros.Any(l => l.Codigo == codigo))
+        {
+            Console.WriteLine("Error: ya existe un libro con ese código.");
+            return;
+        }
+
+        Libro libro = new Libro(
+            titulo,
+            autor,
+            categoria,
+            codigo,
+            true
+        );
+
+        libros.Add(libro);
+
+        Console.WriteLine("Libro registrado correctamente.");
+    }
+
+    // REGISTRAR USUARIO
+
+    public void RegistrarUsuario()
+    {
+        Console.WriteLine("\n--- REGISTRAR USUARIO ---");
+
+        Console.Write("Identificador: ");
+        string identificador = Console.ReadLine()!;
+
+        // Verificar identificador único
+        if (usuarios.Any(u => u.Identificador == identificador))
+        {
+            Console.WriteLine("Error: ya existe un usuario con ese identificador.");
+            return;
+        }
+
+        Console.Write("Nombre: ");
+        string nombre = Console.ReadLine()!;
+
+        Console.Write("Correo: ");
+        string correo = Console.ReadLine()!;
+
+        Usuario usuario = new Usuario(
+            identificador,
+            nombre,
+            correo
+        );
+
+        usuarios.Add(usuario);
+
+        Console.WriteLine("Usuario registrado correctamente.");
+    }
+}
