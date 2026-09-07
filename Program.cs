@@ -99,6 +99,17 @@ class BibliotecaService
         Console.Write("Categoría: ");
         string categoria = Console.ReadLine()!;
 
+
+        if (!categoriasValidas.Contains(categoria))
+        {
+            Console.WriteLine("Categoría inválida. Las categorías válidas son:");
+            foreach (string c in categoriasValidas)
+            {
+                Console.WriteLine($"- {c}");
+            }
+            return;
+        }
+
         Console.Write("Código: ");
         string codigo = Console.ReadLine()!;
 
