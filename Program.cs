@@ -246,9 +246,16 @@ class BibliotecaService
             return;
         }
 
-        if (!libro.Disponibilidad)
+        try
         {
-            Console.WriteLine("No se puede eliminar un libro que está prestado.");
+            if (!libro.Disponibilidad)
+            {
+                throw new LibroPrestadoException($"No se puede eliminar '{libro.Titulo}': está prestado.");
+            }
+        }
+        catch (LibroPrestadoException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
             return;
         }
 
