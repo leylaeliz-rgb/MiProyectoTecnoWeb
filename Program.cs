@@ -27,7 +27,7 @@ class Libro : IPrestable
     {
         if (!Disponibilidad)
         {
-            throw new Exception("El libro ya fue prestado.");
+            throw new LibroNoDisponibleException($"El libro '{Titulo}' ya está prestado.");
         }
 
         Disponibilidad = false;
