@@ -12,6 +12,11 @@ class ElementoDuplicadoException : Exception
 {
     public ElementoDuplicadoException(string mensaje) : base(mensaje) { }
 }
+
+class LibroPrestadoException : Exception
+{
+    public LibroPrestadoException(string mensaje) : base(mensaje) { }
+}
 class Libro : IPrestable
 {
     public string Titulo { get; set; }
