@@ -314,13 +314,15 @@ class BibliotecaService
             return;
         }
 
-        if (!libro.Disponibilidad)
+        try
         {
-            Console.WriteLine("Error: el libro no está disponible.");
+            libro.Prestar();
+        }
+        catch (LibroNoDisponibleException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
             return;
         }
-
-        libro.Prestar();
 
         Prestamo nuevoPrestamo = new Prestamo(
             codigoLibro,
