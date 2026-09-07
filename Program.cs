@@ -124,9 +124,16 @@ class BibliotecaService
         string codigo = Console.ReadLine()!;
 
         // Verificar que el código sea único
-        if (libros.Any(l => l.Codigo == codigo))
+        try
         {
-            Console.WriteLine("Error: ya existe un libro con ese código.");
+            if (libros.Any(l => l.Codigo == codigo))
+            {
+                throw new ElementoDuplicadoException($"Ya existe un libro con el código '{codigo}'.");
+            }
+        }
+        catch (ElementoDuplicadoException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
             return;
         }
 
