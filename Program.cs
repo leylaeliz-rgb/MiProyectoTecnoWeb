@@ -213,4 +213,69 @@ class BibliotecaService
 
         Console.WriteLine("Libro eliminado correctamente.");
     }
+
+    // LIBROS DISPONIBLES
+
+    public void MostrarLibrosDisponibles()
+    {
+        Console.WriteLine("\n--- LIBROS DISPONIBLES ---");
+
+        var disponibles = libros
+            .Where(l => l.Disponibilidad)
+            .ToList();
+
+        if (disponibles.Count == 0)
+        {
+            Console.WriteLine("No hay libros disponibles.");
+            return;
+        }
+
+        foreach (Libro libro in disponibles)
+        {
+            libro.MostrarInformacion();
+        }
+    }
+
+
+    // BUSCAR POR AUTOR
+
+    public void BuscarPorAutor()
+    {
+        Console.WriteLine("\n--- BUSCAR POR AUTOR ---");
+
+        Console.Write("Ingrese el autor: ");
+        string autor = Console.ReadLine()!;
+
+        var resultados = libros
+            .Where(l => l.Autor.ToLower().Contains(autor.ToLower()))
+            .ToList();
+
+        if (resultados.Count == 0)
+        {
+            Console.WriteLine("No se encontraron libros de ese autor.");
+            return;
+        }
+
+        foreach (Libro libro in resultados)
+        {
+            libro.MostrarInformacion();
+        }
+    }
+
+
+    // LIBROS ORDENADOS
+
+    public void ListarOrdenados()
+    {
+        Console.WriteLine("\n--- LIBROS ORDENADOS POR TÍTULO ---");
+
+        var resultados = libros
+            .OrderBy(l => l.Titulo)
+            .ToList();
+
+        foreach (Libro libro in resultados)
+        {
+            libro.MostrarInformacion();
+        }
+    }
 }
