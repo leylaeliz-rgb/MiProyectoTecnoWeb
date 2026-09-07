@@ -146,4 +146,71 @@ class BibliotecaService
 
         Console.WriteLine("Usuario registrado correctamente.");
     }
+
+
+    // LISTAR LIBROS
+
+    public void ListarLibros()
+    {
+        Console.WriteLine("\n--- LISTA DE LIBROS ---");
+
+        if (libros.Count == 0)
+        {
+            Console.WriteLine("No hay libros registrados.");
+            return;
+        }
+
+        foreach (Libro libro in libros)
+        {
+            libro.MostrarInformacion();
+        }
+    }
+
+
+    // BUSCAR LIBRO POR CÓDIGO
+
+    public void BuscarLibro()
+    {
+        Console.WriteLine("\n--- BUSCAR LIBRO ---");
+
+        Console.Write("Ingrese el código: ");
+        string codigo = Console.ReadLine()!;
+
+        Libro? libro = libros.FirstOrDefault(l => l.Codigo == codigo);
+
+        if (libro == null)
+        {
+            Console.WriteLine("No se encontró ningún libro con ese código.");
+            return;
+        }
+
+        libro.MostrarInformacion();
+    }
+
+    // ELIMINAR LIBRO
+    public void EliminarLibro()
+    {
+        Console.WriteLine("\n--- ELIMINAR LIBRO ---");
+
+        Console.Write("Ingrese el código del libro: ");
+        string codigo = Console.ReadLine()!;
+
+        Libro? libro = libros.FirstOrDefault(l => l.Codigo == codigo);
+
+        if (libro == null)
+        {
+            Console.WriteLine("No se encontró el libro.");
+            return;
+        }
+
+        if (!libro.Disponibilidad)
+        {
+            Console.WriteLine("No se puede eliminar un libro que está prestado.");
+            return;
+        }
+
+        libros.Remove(libro);
+
+        Console.WriteLine("Libro eliminado correctamente.");
+    }
 }
