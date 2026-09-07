@@ -313,6 +313,32 @@ class BibliotecaService
     }
 
 
+    // BUSCAR POR CATEGORIA
+
+    public void BuscarPorCategoria()
+    {
+        Console.WriteLine("\n--- BUSCAR POR CATEGORIA ---");
+
+        Console.Write("Ingrese la categoria: ");
+        string categoria = Console.ReadLine()!;
+
+        var resultados = libros
+            .Where(l => l.Categoria.ToLower().Contains(categoria.ToLower()))
+            .ToList();
+
+        if (resultados.Count == 0)
+        {
+            Console.WriteLine("No se encontraron libros de esa categoria.");
+            return;
+        }
+
+        foreach (Libro libro in resultados)
+        {
+            libro.MostrarInformacion();
+        }
+    }
+
+
     // LIBROS ORDENADOS
 
     public void ListarOrdenados()
@@ -484,6 +510,7 @@ class Program
             Console.WriteLine("9. Prestar libro");
             Console.WriteLine("10. Devolver libro");
             Console.WriteLine("11. Mostrar préstamos activos");
+            Console.WriteLine("12. Buscar libros por categoría");
             Console.WriteLine("0. Salir");
             Console.WriteLine("==============================");
 
@@ -537,6 +564,10 @@ class Program
 
                     case 11:
                         bibliotecaPepito.MostrarPrestamosActivos();
+                        break;
+
+                    case 12:
+                        bibliotecaPepito.BuscarPorCategoria();
                         break;
 
                     case 0:
