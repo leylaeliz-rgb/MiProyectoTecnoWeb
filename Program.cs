@@ -407,3 +407,104 @@ class BibliotecaService
         }
     }
 }
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        BibliotecaService bibliotecaPepito = new BibliotecaService();
+
+        bool continuar = true;
+
+        while (continuar)
+        {
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("      BIBLIOTECA PEPITO");
+            Console.WriteLine("==============================");
+            Console.WriteLine("1. Registrar libro");
+            Console.WriteLine("2. Registrar usuario");
+            Console.WriteLine("3. Listar libros");
+            Console.WriteLine("4. Buscar libro por código");
+            Console.WriteLine("5. Eliminar libro");
+            Console.WriteLine("6. Mostrar libros disponibles");
+            Console.WriteLine("7. Buscar libros por autor");
+            Console.WriteLine("8. Listar libros ordenados");
+            Console.WriteLine("9. Prestar libro");
+            Console.WriteLine("10. Devolver libro");
+            Console.WriteLine("11. Mostrar préstamos activos");
+            Console.WriteLine("0. Salir");
+            Console.WriteLine("==============================");
+
+            Console.Write("Seleccione una opción: ");
+
+            try
+            {
+                int opcion = int.Parse(Console.ReadLine()!);
+
+                switch (opcion)
+                {
+                    case 1:
+                        bibliotecaPepito.RegistrarLibro();
+                        break;
+
+                    case 2:
+                        bibliotecaPepito.RegistrarUsuario();
+                        break;
+
+                    case 3:
+                        bibliotecaPepito.ListarLibros();
+                        break;
+
+                    case 4:
+                        bibliotecaPepito.BuscarLibro();
+                        break;
+
+                    case 5:
+                        bibliotecaPepito.EliminarLibro();
+                        break;
+
+                    case 6:
+                        bibliotecaPepito.MostrarLibrosDisponibles();
+                        break;
+
+                    case 7:
+                        bibliotecaPepito.BuscarPorAutor();
+                        break;
+
+                    case 8:
+                        bibliotecaPepito.ListarOrdenados();
+                        break;
+
+                    case 9:
+                        bibliotecaPepito.PrestarLibro();
+                        break;
+
+                    case 10:
+                        bibliotecaPepito.DevolverLibro();
+                        break;
+
+                    case 11:
+                        bibliotecaPepito.MostrarPrestamosActivos();
+                        break;
+
+                    case 0:
+                        continuar = false;
+                        Console.WriteLine("Programa finalizado.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opción no válida.");
+                        break;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: debe ingresar un número válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+    }
+}
