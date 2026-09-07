@@ -375,4 +375,35 @@ class BibliotecaService
         Console.WriteLine("Libro devuelto correctamente.");
     }
 
+    // PRÉSTAMOS ACTIVOS
+
+    public void MostrarPrestamosActivos()
+    {
+        Console.WriteLine("\n--- PRÉSTAMOS ACTIVOS ---");
+
+        var activos = prestamos
+            .Where(p => p.FechaDevolucion == null)
+            .Select(p => new
+            {
+                CodigoLibro = p.CodigoLibro,
+                Usuario = p.IdentificadorUsuario,
+                Fecha = p.FechaPrestamo
+            })
+            .ToList();
+
+        if (activos.Count == 0)
+        {
+            Console.WriteLine("No existen préstamos activos.");
+            return;
+        }
+
+        foreach (var prestamo in activos)
+        {
+            Console.WriteLine(
+                $"Libro: {prestamo.CodigoLibro} | " +
+                $"Usuario: {prestamo.Usuario} | " +
+                $"Fecha: {prestamo.Fecha}"
+            );
+        }
+    }
 }
