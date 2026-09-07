@@ -278,4 +278,57 @@ class BibliotecaService
             libro.MostrarInformacion();
         }
     }
+
+
+
+    // PRESTAR LIBRO
+    public void PrestarLibro()
+    {
+        Console.WriteLine("\n--- PRESTAR LIBRO ---");
+
+        Console.Write("Código del libro: ");
+        string codigoLibro = Console.ReadLine()!;
+
+        Console.Write("Identificador del usuario: ");
+        string identificadorUsuario = Console.ReadLine()!;
+
+        Libro? libro = libros.FirstOrDefault(l => l.Codigo == codigoLibro);
+
+        if (libro == null)
+        {
+            Console.WriteLine("Error: el libro no existe.");
+            return;
+        }
+
+        Usuario? usuario = usuarios.FirstOrDefault(
+            u => u.Identificador == identificadorUsuario
+        );
+
+        if (usuario == null)
+        {
+            Console.WriteLine("Error: el usuario no existe.");
+            return;
+        }
+
+        if (!libro.Disponibilidad)
+        {
+            Console.WriteLine("Error: el libro no está disponible.");
+            return;
+        }
+
+        libro.Prestar();
+
+        Prestamo nuevoPrestamo = new Prestamo(
+            codigoLibro,
+            identificadorUsuario,
+            DateTime.Now,
+            null
+        );
+
+        prestamos.Add(nuevoPrestamo);
+
+        Console.WriteLine("Préstamo registrado correctamente.");
+    }
+
+
 }
