@@ -80,6 +80,10 @@ class BibliotecaService
     private List<Libro> libros = new List<Libro>();
     private List<Usuario> usuarios = new List<Usuario>();
     private List<Prestamo> prestamos = new List<Prestamo>();
+    private readonly string[] categoriasValidas =
+{
+    "Ficción", "No Ficción", "Ciencia", "Historia", "Tecnología", "Infantil"
+};
 
     // REGISTRAR LIBRO
     public void RegistrarLibro()
