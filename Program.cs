@@ -3,6 +3,10 @@
     void Prestar();
     void Devolver();
 }
+class LibroNoDisponibleException : Exception
+{
+    public LibroNoDisponibleException(string mensaje) : base(mensaje) { }
+}
 class Libro : IPrestable
 {
     public string Titulo { get; set; }
