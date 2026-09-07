@@ -7,6 +7,11 @@ class LibroNoDisponibleException : Exception
 {
     public LibroNoDisponibleException(string mensaje) : base(mensaje) { }
 }
+
+class ElementoDuplicadoException : Exception
+{
+    public ElementoDuplicadoException(string mensaje) : base(mensaje) { }
+}
 class Libro : IPrestable
 {
     public string Titulo { get; set; }
